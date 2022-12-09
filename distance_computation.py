@@ -45,7 +45,7 @@ def compute_distance(descriptors1, descriptors2):
 # Compute distance between uploaded image and all images in the database with the given method and number of
 # descriptors. Return top 10 images with the highest similarity.
 def compute(img_path, desc_num, method):
-    sift = cv.SIFT_create(desc_num)
+    sift = cv.SIFT_create(int(desc_num))
     img = cv.imread(str(img_path), cv.IMREAD_GRAYSCALE)
 
     # Compute keyPoints and descriptors
