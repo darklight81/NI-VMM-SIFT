@@ -16,8 +16,7 @@ class Index(View):
         desc_num = request.POST.get('range')
         if desc_num == 1000:
             desc_num = 0
-
-        if method == 'brute_force':
+        if method == 'brute-force':
             method = 0
         else:
             method = 1

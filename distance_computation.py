@@ -31,7 +31,8 @@ def nearest_neighbors(data, predict):
     print("final: ", len(final_distances), " / ", len(data))
     return vote_result
 
-#===============================================================
+
+# ===============================================================
 import cv2
 from typing import Dict, List, Tuple
 import numpy.typing as npt
@@ -46,13 +47,13 @@ def euclidean_distance(v1: Descriptor, v2: Descriptor) -> float:
 
 def similarity_f(r1: Descriptor, r2: Descriptor) -> float:
     return np.e ** (
-        -30 * euclidean_distance(r1, r2) ** 2
+            -30 * euclidean_distance(r1, r2) ** 2
     )  # alt: 1. / (1. + euclidean_distance(r1, r2))
 
 
 def computeSQFD(
-    data: List[Tuple[Descriptor, Weight]],
-    predict: List[Tuple[Descriptor, Weight]],
+        data: List[Tuple[Descriptor, Weight]],
+        predict: List[Tuple[Descriptor, Weight]],
 ):
     """
     features signatures are array of (centroid, weight of cluster)
@@ -74,8 +75,9 @@ def computeSQFD(
 
     return np.sqrt(np.dot(np.dot(weights, a), weights.T))
 
+
 def compute_signatures(
-    centroids_of_features, original_features_len: int, cluster_sizes: Dict[int, int]
+        centroids_of_features, original_features_len: int, cluster_sizes: Dict[int, int]
 ):
     """
     For each centroid compute its clusters size / original size of features. The result value is cluster's weight
@@ -84,6 +86,7 @@ def compute_signatures(
         (centroid, cluster_sizes[i] / original_features_len)
         for i, centroid in enumerate(centroids_of_features)
     ]
+
 
 def make_clusters(features):
     """
@@ -103,7 +106,8 @@ def make_clusters(features):
         cluster_sizes[label] += 1
     return cluster_sizes, feature_centroids
 
-#===============================================================
+
+# ===============================================================
 
 # Compute distance between uploaded image and all images in the database with the given method and number of
 # descriptors. Return top 10 images with the highest similarity.
@@ -124,8 +128,8 @@ def compute(img_path, desc_num, method):
 
             print("Distance between " + str(img_path) + " and " + str(descriptor_path) + ": " + str(distance))
             # Save distance with image name
-            myDict[descriptor_path.stem] = distance
             distance = nearest_neighbors(descriptor, descriptors)
+            myDict[descriptor_path.stem] = distance
     # SQFD
     elif method == 1:
         features = np.float32(np.array([kp.pt for kp in keyPoints]))
@@ -142,7 +146,7 @@ def compute(img_path, desc_num, method):
         # makes array of [key, value]
         results_arr = result.items()
         # sorts array by second element (value), and gets only n_results number of pictures
-        n_results = 10 # maximum number of the best match images
+        n_results = 10  # maximum number of the best match images
         results_sorted = sorted(results_arr, key=lambda item: item[1])[:n_results]
         # creates map (key, value)
         myDict = dict(results_sorted)
