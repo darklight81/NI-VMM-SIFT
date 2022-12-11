@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,python,pycharm+all
 
 ### Django ###
+static/images/descriptors/
 *.log
 *.pot
 *.pyc
