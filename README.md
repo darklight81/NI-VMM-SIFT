@@ -1,2 +1,2 @@
 # NI-VMM - IMAGE RETRIEVAL – PODOBNOST OBRÁZKŮ (SIFT)
-todo
+Všechny informace lze najít v zprávě k projektu.
