@@ -22,7 +22,7 @@
             </div>
           </div>
           <div>
-            <h4>2. Select number of iterations</h4>
+            <h4>2. Select number of descriptors </h4>
             <div class="d-flex justify-content-start">
               <input style="flex-basis: 100%;" type="range" value="500" min="100" max="1000" step="100"
                 id="customRange1" name="range" oninput="this.nextElementSibling.value = this.value">
@@ -31,7 +31,9 @@
           </div>
         </div>
         <div class="col card me-3 d-none d-md-block">
+            {% if time %}
           <img style="max-height: 100%; max-width: 100%;" src="{% static 'images/uploaded.jpg' %}">
+            {% endif %}
         </div>
       </div>
       <input type="submit" class="btn btn-primary fs-5" value="Let's roll!"></input>
@@ -39,7 +41,7 @@
   </div>
 
   <div class="container bg-light shadow p-5 mt-4 mb-5 bg-body rounded">
-    <h2>Results (computed in 2.4s)</h2>
+    <h2>Results {% if time %}(computed in {{ time }} seconds) {% endif %}</h2>
     <div class="d-flex flex-wrap justify-content-center mt-4">
       {% for x in results %}
       <div class="mt-4 me-4">
