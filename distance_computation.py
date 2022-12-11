@@ -27,13 +27,12 @@ def nearest_neighbors(data, predict, similarity):
         distances = []
 
     # Number of correct matches correspond to image similarity
-    vote_result = len(final_distances)
+    result = len(final_distances)
     print("final: ", len(final_distances), " / ", len(data))
-    return vote_result
+    return result
 
 
-# Compute distance between uploaded image and all images in the database with the given method and number of
-# descriptors. Return top 10 images with the highest similarity.
+# Compute distance between uploaded image and all images in the database with the given method and number of descriptors
 def compute(img_path, desc_num, method, similarity):
     sift = cv.SIFT_create(int(desc_num))
     img = cv.imread(str(img_path), cv.IMREAD_GRAYSCALE)
@@ -42,7 +41,7 @@ def compute(img_path, desc_num, method, similarity):
     keyPoints, descriptors = sift.detectAndCompute(img, None)
 
     myDict = {}
-    # Euclidean distance
+    # Brute force
     if method == 0:
         # Iterate over all image descriptors in images/descriptors and return closest matches
         for descriptor_path in sorted(Path("static/images/descriptors").glob("*.npy")):
@@ -50,10 +49,10 @@ def compute(img_path, desc_num, method, similarity):
             distance = 0
             descriptor = np.load(descriptor_path)
 
-            print("Distance between " + str(img_path) + " and " + str(descriptor_path) + ": " + str(distance))
             # Save distance with image name
             distance = nearest_neighbors(descriptor, descriptors, similarity)
-            myDict[descriptor_path.stem] = distance
+            if distance > 0:
+                myDict[descriptor_path.stem] = distance
     # SQFD
     else:
         pass
@@ -63,8 +62,7 @@ def compute(img_path, desc_num, method, similarity):
         print(x, myDict[x])
         imageList.append(Image(x, myDict[x]))
 
-    # Return top 10 images with the highest similarity
-    return imageList[:10]
+    return imageList
 
 
 if __name__ == '__main__':

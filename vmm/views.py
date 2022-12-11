@@ -16,7 +16,11 @@ class Index(View):
     def post(self, request):
         # Measure time
         start = time.time()
-        handle_uploaded_file(request.FILES['query_img'])
+        try:
+            handle_uploaded_file(request.FILES['query_img'])
+        except:
+            print("No file uploaded")
+            return render(request, self.template)
         similarity = request.POST.get('similarity')
         desc_num = request.POST.get('range')
         if desc_num == 1000:

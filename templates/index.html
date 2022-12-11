@@ -47,9 +47,9 @@
       <input type="submit" class="btn btn-primary fs-5" value="Let's roll!"></input>
     </form>
   </div>
-
+{% if time %}
   <div class="container bg-light shadow p-5 mt-4 mb-5 bg-body rounded">
-    <h2>Results {% if time %}(computed in {{ time }} seconds) {% endif %}</h2>
+    <h2>Results(computed in {{ time }} seconds)</h2>
     <div class="d-flex flex-wrap justify-content-center mt-4">
       {% for x in results %}
       <div class="mt-4 me-4">
@@ -61,6 +61,7 @@
       {% endfor %}
     </div>
   </div>
+{% endif %}
 </body>
 
 </html>
