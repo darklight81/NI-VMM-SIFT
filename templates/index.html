@@ -22,7 +22,15 @@
             </div>
           </div>
           <div>
-            <h4>2. Select number of descriptors </h4>
+            <h4>2. Select similarity limit</h4>
+            <div class="d-flex justify-content-start">
+              <input style="flex-basis: 100%;" type="range" value="7" min="1" max="9"
+                id="customRange1" name="range" oninput="this.nextElementSibling.value = this.value">
+              <output style="padding-left: 15px;">7</output>
+            </div>
+          </div>
+          <div>
+            <h4>3. Select number of descriptors</h4>
             <div class="d-flex justify-content-start">
               <input style="flex-basis: 100%;" type="range" value="500" min="100" max="1000" step="100"
                 id="customRange1" name="range" oninput="this.nextElementSibling.value = this.value">
