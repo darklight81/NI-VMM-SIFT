@@ -12,7 +12,7 @@ class Image:
         self.similarity = similarity
 
 
-def nearest_neighbors(data, predict):
+def nearest_neighbors(data, predict, similarity):
     distances = []
     final_distances = []
 
@@ -22,7 +22,7 @@ def nearest_neighbors(data, predict):
         distances = sorted(distances)
 
         # Detect correct match
-        if distances[0] / distances[1] <= correct_match:
+        if distances[0] / distances[1] <= int(similarity)/10:
             final_distances.append(distances[0])
         distances = []
 
@@ -34,7 +34,7 @@ def nearest_neighbors(data, predict):
 
 # Compute distance between uploaded image and all images in the database with the given method and number of
 # descriptors. Return top 10 images with the highest similarity.
-def compute(img_path, desc_num, method):
+def compute(img_path, desc_num, method, similarity):
     sift = cv.SIFT_create(int(desc_num))
     img = cv.imread(str(img_path), cv.IMREAD_GRAYSCALE)
 
@@ -52,7 +52,7 @@ def compute(img_path, desc_num, method):
 
             print("Distance between " + str(img_path) + " and " + str(descriptor_path) + ": " + str(distance))
             # Save distance with image name
-            distance = nearest_neighbors(descriptor, descriptors)
+            distance = nearest_neighbors(descriptor, descriptors, similarity)
             myDict[descriptor_path.stem] = distance
     # SQFD
     else:

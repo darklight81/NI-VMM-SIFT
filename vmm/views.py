@@ -17,12 +17,13 @@ class Index(View):
         # Measure time
         start = time.time()
         handle_uploaded_file(request.FILES['query_img'])
+        similarity = request.POST.get('similarity')
         desc_num = request.POST.get('range')
         if desc_num == 1000:
             desc_num = 0
 
         generate_descriptors(desc_num)
-        results = compute('static/images/uploaded.jpg', desc_num=desc_num, method=0)
+        results = compute('static/images/uploaded.jpg', desc_num=desc_num, method=0, similarity=similarity)
 
         # End time
         end = time.time()
