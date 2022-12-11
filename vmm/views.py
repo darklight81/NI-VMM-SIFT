@@ -1,8 +1,11 @@
+import time
 from pathlib import Path
 
 from django.shortcuts import render
 from django.views import View
 from distance_computation import compute
+from siftgen import generate_descriptors
+
 
 class Index(View):
     template = 'index.html'
@@ -11,18 +14,20 @@ class Index(View):
         return render(request, self.template)
 
     def post(self, request):
+        # Measure time
+        start = time.time()
         handle_uploaded_file(request.FILES['query_img'])
-        method = request.POST.get('method')
         desc_num = request.POST.get('range')
         if desc_num == 1000:
             desc_num = 0
-        if method == 'brute-force':
-            method = 0
-        else:
-            method = 1
 
+        generate_descriptors(desc_num)
         results = compute('static/images/uploaded.jpg', desc_num=desc_num, method=0)
-        return render(request, self.template, {'results': results, 'paths': 'images/uploaded.jpg'})
+
+        # End time
+        end = time.time()
+        return render(request, self.template, {'results': results, 'paths': 'images/uploaded.jpg',
+                                               'time': str(round(end - start, 2))})
 
 
 def handle_uploaded_file(f):
