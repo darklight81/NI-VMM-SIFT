@@ -43,7 +43,7 @@
     <div class="d-flex flex-wrap justify-content-center mt-4">
       {% for x in results %}
       <div class="mt-4 me-4">
-        <img src="{% static 'images/cat/' %}{{ x.name }}.jpg" style="max-height: 250px;"
+        <img src="{% static 'images/img/' %}{{ x.name }}.jpg" style="max-height: 250px;"
           class="card-img-top">
         <h5 class="card-title">{{ x.name }}</h5>
         <p class="card-text">Similarity: {{ x.similarity }}</p>

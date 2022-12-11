@@ -21,7 +21,7 @@ class Index(View):
         else:
             method = 1
 
-        results = compute('static/images/uploaded.jpg', desc_num=100, method=method)
+        results = compute('static/images/uploaded.jpg', desc_num=desc_num, method=0)
         return render(request, self.template, {'results': results, 'paths': 'images/uploaded.jpg'})
 
 

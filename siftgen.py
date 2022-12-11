@@ -6,8 +6,9 @@ import cv2 as cv
 # Todo: Possibly experiment with the number of descriptors that generates and how the similarity changes then
 
 # Generate SIFT descriptors from all images stored in './images/img' and save them to './images/descriptors'
-def generate_descriptors(sift):
-    for img_path in sorted(Path("static/images/cat").glob("*.jpg")):
+def generate_descriptors():
+    sift = cv.SIFT_create(300)
+    for img_path in sorted(Path("static/images/img").glob("*.jpg")):
         img = cv.imread(str(img_path), cv.IMREAD_GRAYSCALE)
 
         print("Computing descriptors for image " + str(img_path) + "...")
@@ -20,5 +21,4 @@ def generate_descriptors(sift):
 
 
 if __name__ == '__main__':
-    sift = cv.SIFT_create(100)
-    generate_descriptors(sift)
+    generate_descriptors()
